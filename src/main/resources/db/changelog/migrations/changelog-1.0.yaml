@@ -1,0 +1,126 @@
+databaseChangeLog:
+  - changeSet:
+      id: 100000-create-sequences
+      author: Strikunova Anastasia
+      changes:
+        - createSequence:
+            cycle: false
+            sequenceName: seq_purse
+            startValue: 1
+            dataType: bigint
+        - createSequence:
+            cycle: false
+            sequenceName: seq_history
+            startValue: 1
+            dataType: bigint
+        - createSequence:
+            cycle: false
+            sequenceName: seq_payment
+            startValue: 1
+            dataType: bigint
+
+  - changeSet:
+      id: 100000-create-tables
+      author: Strikunova Anastasia
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column: { name: personal_account, type: UUID }
+              - column: { name: name, type: VARCHAR(30) }
+              - column: { name: id_purse, type: BIGINT }
+        - createTable:
+            tableName: purse
+            columns:
+              - column: { name: id_purse, type: BIGINT }
+              - column: { name: balance, type: NUMERIC }
+        - createTable:
+            tableName: history
+            columns:
+              - column: { name: id_history, type: BIGINT }
+              - column: { name: personal_account, type: UUID }
+              - column: { name: amount, type: NUMERIC }
+              - column: { name: type_of_transaction, type: VARCHAR(30) }
+              - column: { name: time, type: TIMESTAMP WITH TIME ZONE, defaultValueComputed: now() }
+        - createTable:
+            tableName: payment
+            columns:
+              - column: { name: id_payment, type: BIGINT }
+              - column: { name: id_project, type: BIGINT }
+              - column: { name: price, type: NUMERIC }
+              - column: { name: customer_personal_account, type: UUID }
+              - column: { name: is_paid, type: BOOLEAN }
+
+  - changeSet:
+      id: 100000-add-keys
+      author: Strikunova Anastasia
+      changes:
+        - addPrimaryKey: { columnNames: personal_account, constraintName: pk_personal_account, tableName: customer }
+        - addPrimaryKey: { columnNames: id_purse, constraintName: pk_purse, tableName: purse }
+        - addPrimaryKey: { columnNames: id_history, constraintName: pk_history, tableName: history }
+        - addPrimaryKey: { columnNames: id_payment, constraintName: pk_payment, tableName: payment }
+        - addForeignKeyConstraint:
+            baseColumnNames: id_purse
+            baseTableName: customer
+            constraintName: fk_customer_0
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id_purse
+            referencedTableName: purse
+            referencedTableSchemaName: public
+        - addForeignKeyConstraint:
+            baseColumnNames: personal_account
+            baseTableName: history
+            constraintName: fk_history_0
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: personal_account
+            referencedTableName: customer
+            referencedTableSchemaName: public
+        - addForeignKeyConstraint:
+            baseColumnNames: id_project
+            baseTableName: payment
+            constraintName: fk_payment_0
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id_project
+            referencedTableName: project
+            referencedTableSchemaName: public
+        - addForeignKeyConstraint:
+            baseColumnNames: customer_personal_account
+            baseTableName: payment
+            constraintName: fk_payment_1
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: personal_account
+            referencedTableName: customer
+            referencedTableSchemaName: public
+
+  - changeSet:
+      id: 100000-add-comments
+      author: Strikunova Anastasia
+      changes:
+        - sql:
+            dbms: postgresql
+            stripComments: true
+            sql: comment on table customer is 'Таблица хранения заказчиков';
+        - sql:
+            dbms: postgresql
+            stripComments: true
+            sql: comment on table purse is 'Таблица хранения кошельков';
+        - sql:
+            dbms: postgresql
+            stripComments: true
+            sql: comment on table history is 'Таблица хранения исории операций';
+        - sql:
+            dbms: postgresql
+            stripComments: true
+            sql: comment on table payment is 'Таблица хранения оплаты';
