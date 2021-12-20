@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 100001-dropForeignKeyConstraint-in-payment
+      author: Strikunova Anastasia
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: payment
+            constraintName: fk_payment_0

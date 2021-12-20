@@ -83,6 +83,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional(readOnly = true)
     public Boolean isPaid(Long idProject) {
+        System.out.println("---------------------------------------"+idProject);
         return paymentRepository.findByIdProject(idProject).getIsPaid();
     }
 }

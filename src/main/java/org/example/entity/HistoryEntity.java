@@ -1,9 +1,18 @@
 package org.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 
 @Entity
 @Table(name = "history")
@@ -20,55 +29,4 @@ public class HistoryEntity {
     @Column(name = "type_of_transaction")
     String typeOfTransaction;
     Date time;
-
-    public HistoryEntity(Long idHistory, CustomerEntity customerEntity, Long amount, String typeOfTransaction, Date time) {
-        this.idHistory = idHistory;
-        this.customerEntity = customerEntity;
-        this.amount = amount;
-        this.typeOfTransaction = typeOfTransaction;
-        this.time = time;
-    }
-
-    public HistoryEntity() {
-    }
-
-    public Long getIdHistory() {
-        return this.idHistory;
-    }
-
-    public CustomerEntity getCustomerEntity() {
-        return this.customerEntity;
-    }
-
-    public Long getAmount() {
-        return this.amount;
-    }
-
-    public String getTypeOfTransaction() {
-        return this.typeOfTransaction;
-    }
-
-    public Date getTime() {
-        return this.time;
-    }
-
-    public void setIdHistory(Long idHistory) {
-        this.idHistory = idHistory;
-    }
-
-    public void setCustomerEntity(CustomerEntity customerEntity) {
-        this.customerEntity = customerEntity;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
-
-    public void setTypeOfTransaction(String typeOfTransaction) {
-        this.typeOfTransaction = typeOfTransaction;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 }

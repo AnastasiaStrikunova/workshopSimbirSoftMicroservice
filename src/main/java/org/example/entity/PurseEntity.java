@@ -1,6 +1,16 @@
 package org.example.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 
 @Entity
 @Table(name = "purse")
@@ -11,31 +21,7 @@ public class PurseEntity {
     Long idPurse;
     Long balance;
 
-    public PurseEntity(Long idPurse, Long balance) {
-        this.idPurse = idPurse;
-        this.balance = balance;
-    }
-
     public PurseEntity(Long idPurse) {
         this.idPurse = idPurse;
-    }
-
-    public PurseEntity() {
-    }
-
-    public Long getIdPurse() {
-        return this.idPurse;
-    }
-
-    public Long getBalance() {
-        return this.balance;
-    }
-
-    public void setIdPurse(Long idPurse) {
-        this.idPurse = idPurse;
-    }
-
-    public void setBalance(Long balance) {
-        this.balance = balance;
     }
 }

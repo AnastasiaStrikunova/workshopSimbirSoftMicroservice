@@ -1,20 +1,14 @@
 package org.example.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class PurseRequestDto {
     Long balance;
-
-    public PurseRequestDto(Long balance) {
-        this.balance = balance;
-    }
-
-    public PurseRequestDto() {
-    }
-
-    public Long getBalance() {
-        return this.balance;
-    }
-
-    public void setBalance(Long balance) {
-        this.balance = balance;
-    }
 }
